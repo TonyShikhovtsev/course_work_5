@@ -1,18 +1,26 @@
 import requests
 
+
 class HeadHunterAPIVacancies:
-    """Класс для получения информации с сайта hh.ru"""
+    """
+    Класс для получения информации с сайта hh.ru по вакансиям
+    """
     def __init__(self):
         self.url = "https://api.hh.ru/vacancies/"
 
     def get_vacancies(self):
-        """Получает вакансии с сайта hh.ru без использования токена"""
-        employer_ids = ['64174',
-                        '1740',
-                        '3529',
+        employer_ids = ['64174',# 2гис
+                        '1740',# Яндекс
+                        '3529',# Сбербанк
+                        '4339952',# Газпром
+                        '78638',# Тинькофф
+                        '4181',# ВТБ
+                        '80',# Альфа-банк
+                        '4394',# ОТП Банк
+                        '86391999', #skypro
                         ]
         items = []
-        # Получение информации с 5 страниц по 10 результатов на странице
+
         for employer_id in employer_ids:
             for i in range(5):
                 response = requests.get(self.url,
@@ -24,7 +32,6 @@ class HeadHunterAPIVacancies:
                                         })
                 if response.status_code == 200:
                     vacancies = response.json().get('items', [])
-                    # Получение вакансий только с валютой равной Рублю
                     for vacancy in vacancies:
                         if vacancy.get('salary').get('currency') == "RUR":
                             items.append(vacancy)
@@ -34,18 +41,25 @@ class HeadHunterAPIVacancies:
         return items
 
 class HeadHunterAPIEmployers:
-    """Класс для получения информации с сайта hh.ru"""
+    """
+    Класс для получения информации с сайта hh.ru по работодателям
+    """
     def __init__(self):
         self.url = "https://api.hh.ru/employers/"
 
     def get_employers(self):
-        """Получает вакансии с сайта hh.ru без использования токена"""
-        employer_ids = ['64174',
-                        '1740',
-                        '3529',
+        employer_ids = ['64174',# 2гис
+                        '1740',# Яндекс
+                        '3529',# Сбербанк
+                        '4339952',# Газпром
+                        '78638',# Тинькофф
+                        '4181',# ВТБ
+                        '80',# Альфа-банк
+                        '4394',# ОТП Банк
+                        '86391999', #skypro
                         ]
         items = []
-        # Получение информации с 5 страниц по 10 результатов на странице
+
         for employer_id in employer_ids:
             url = self.url + employer_id
             response = requests.get(url)

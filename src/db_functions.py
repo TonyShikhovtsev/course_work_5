@@ -2,12 +2,19 @@ from src.config import config
 import psycopg2
 
 
+
 def database_parameters():
-    db_params = config()  # Получаем параметры из файла database.ini
+    """
+    Функция подключения к БД
+    """
+    db_params = config()
     return db_params
 
 
 def create_database(db_name: str, params: dict):
+    """
+    Функция создания БД
+    """
     connection = psycopg2.connect(dbname='postgres', **params)
     connection.autocommit = True
     cursor = connection.cursor()
@@ -41,6 +48,9 @@ def create_database(db_name: str, params: dict):
 
 
 def process_to_db_employers(db_name: str, params: dict, data):
+    """
+    Функция заполнения БД по работодателям
+    """
     with psycopg2.connect(dbname=db_name, **params) as connection:
         with connection.cursor() as cursor:
             for company in data:
@@ -61,6 +71,9 @@ def process_to_db_employers(db_name: str, params: dict, data):
 
 
 def process_to_db_vacancies(db_name: str, params: dict, data):
+    """
+    Функция заполнения БД по вакансиям
+    """
     with psycopg2.connect(dbname=db_name, **params) as connection:
         with connection.cursor() as cursor:
             for vacancy in data:
