@@ -2,6 +2,7 @@ from src.config import config
 import psycopg2
 
 
+
 def database_parameters():
     """
     Функция подключения к БД

@@ -3,6 +3,7 @@ from src.db_functions import create_database, database_parameters, process_to_db
 from src.manager import DBManager
 
 
+
 def main():
     """
     Основная функция с выводом информации в консоль (в том числе средняя ЗП и вывод вакансий с

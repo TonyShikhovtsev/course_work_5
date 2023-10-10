@@ -1,6 +1,7 @@
 import psycopg2
 
 
+
 class DBManager:
     """
     Класс подключения к БД PostgreSQL

@@ -1,5 +1,6 @@
 import requests
 
+
 class HeadHunterAPIVacancies:
     """
     Класс для получения информации с сайта hh.ru по вакансиям
