@@ -2,11 +2,17 @@ import psycopg2
 
 
 class DBManager:
+    """
+    Класс подключения к БД PostgreSQL
+    """
     def __init__(self, db_name: str, params: dict):
         self.db_name = db_name
         self.params = params
 
     def get_companies_and_vacancies_count(self):
+        """
+        Получает список всех компаний и количество вакансий у каждой компании
+        """
         results = []
         with psycopg2.connect(dbname=self.db_name, **self.params) as connection:
             with connection.cursor() as cursor:
@@ -23,6 +29,9 @@ class DBManager:
         return results
 
     def get_all_vacancies(self):
+        """
+        получает список всех вакансий с указанием названия компании, названия вакансии и зарплаты и ссылки на вакансию
+        """
         results = []
         with psycopg2.connect(dbname=self.db_name, **self.params) as connection:
             with connection.cursor() as cursor:
@@ -37,6 +46,9 @@ class DBManager:
         return results
 
     def get_avg_salary(self):
+        """
+        получает среднюю зарплату по вакансиям
+        """
         with psycopg2.connect(dbname=self.db_name, **self.params) as connection:
             with connection.cursor() as cursor:
                 cursor.execute("""
@@ -50,6 +62,9 @@ class DBManager:
             return 0.0  # Возвращаем 0.0, если средняя зарплата не определена.
 
     def get_vacancies_with_higher_salary(self):
+        """
+        получает список всех вакансий, у которых зарплата выше средней по всем вакансиям
+        """
         results = []
         with psycopg2.connect(dbname=self.db_name, **self.params) as connection:
             with connection.cursor() as cursor:
@@ -67,6 +82,9 @@ class DBManager:
         return results
 
     def get_vacancies_with_keyword(self, keyword):
+        """
+        get_vacancies_with_keyword()получает список всех вакансий, в названии которых содержатся переданные в метод слова
+        """
         results = []
         with psycopg2.connect(dbname=self.db_name, **self.params) as connection:
             with connection.cursor() as cursor:
